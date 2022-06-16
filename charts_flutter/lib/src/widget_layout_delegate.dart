@@ -37,10 +37,22 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   void performLayout(Size size) {
+    final outsideBehaviorsId = idAndBehavior.entries
+        .where(
+          (element) => element.value.position != common.BehaviorPosition.inside,
+        )
+        .map((e) => e.key)
+        .toList();
+    final insideBehaviorsId = idAndBehavior.entries
+        .where(
+          (element) => element.value.position == common.BehaviorPosition.inside,
+        )
+        .map((e) => e.key)
+        .toList();
     // TODO: Change this to a layout manager that supports more
     // than one buildable behavior that changes chart size. Remove assert when
     // this is possible.
-    assert(idAndBehavior.keys.isEmpty || idAndBehavior.keys.length == 1);
+    assert(outsideBehaviorsId.isEmpty || outsideBehaviorsId.length == 1);
 
     // Size available for the chart widget.
     var availableWidth = size.width;
@@ -48,18 +60,19 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
     var chartOffset = Offset.zero;
 
     // Measure the first buildable behavior.
-    final behaviorID =
-        idAndBehavior.keys.isNotEmpty ? idAndBehavior.keys.first : null;
+    final outsideBehaviorID =
+        outsideBehaviorsId.isNotEmpty ? outsideBehaviorsId.first : null;
     var behaviorSize = Size.zero;
-    if (behaviorID != null) {
-      if (hasChild(behaviorID)) {
+    if (outsideBehaviorID != null) {
+      if (hasChild(outsideBehaviorID)) {
         final leftPosition =
             isRTL ? common.BehaviorPosition.end : common.BehaviorPosition.start;
         final rightPosition =
             isRTL ? common.BehaviorPosition.start : common.BehaviorPosition.end;
-        final behaviorPosition = idAndBehavior[behaviorID]!.position;
+        final behaviorPosition = idAndBehavior[outsideBehaviorID]!.position;
 
-        behaviorSize = layoutChild(behaviorID, new BoxConstraints.loose(size));
+        behaviorSize =
+            layoutChild(outsideBehaviorID, new BoxConstraints.loose(size));
         if (behaviorPosition == common.BehaviorPosition.top) {
           chartOffset = new Offset(0.0, behaviorSize.height);
           availableHeight -= behaviorSize.height;
@@ -82,14 +95,31 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
     }
 
     // Position buildable behavior.
-    if (behaviorID != null) {
+    if (outsideBehaviorID != null) {
       // TODO: Unable to relayout with new smaller width.
       // In the delegate, all children are required to have layout called
       // exactly once.
-      final behaviorOffset = _getBehaviorOffset(idAndBehavior[behaviorID]!,
-          behaviorSize: behaviorSize, chartSize: chartSize, isRTL: isRTL);
+      final behaviorOffset = _getBehaviorOffset(
+          idAndBehavior[outsideBehaviorID]!,
+          behaviorSize: behaviorSize,
+          chartSize: chartSize,
+          isRTL: isRTL);
 
-      positionChild(behaviorID, behaviorOffset);
+      positionChild(outsideBehaviorID, behaviorOffset);
+    }
+
+    // We can layout inside buildable behaviors that don't change chart size
+    for (final behaviorId in insideBehaviorsId) {
+      if (hasChild(behaviorId)) {
+        layoutChild(behaviorId, new BoxConstraints.tight(chartSize));
+        final behaviorOffset = _getBehaviorOffset(
+            idAndBehavior[behaviorId]!,
+            behaviorSize: behaviorSize,
+            chartSize: chartSize,
+            isRTL: isRTL);
+
+        positionChild(behaviorId, behaviorOffset);
+      }
     }
   }
 
