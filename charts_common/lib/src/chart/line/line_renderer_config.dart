@@ -70,6 +70,9 @@ class LineRendererConfig<D> extends LayoutViewConfig
   /// Configures the opacity of the area skirt on the chart.
   final double areaOpacity;
 
+  /// Adds a tramsparent gradient to the area
+  final bool areaHasTransparentGradient;
+
   /// Whether lines should have round end caps, or square if false.
   final bool roundEndCaps;
 
@@ -85,6 +88,7 @@ class LineRendererConfig<D> extends LayoutViewConfig
       this.layoutPaintOrder = LayoutViewPaintOrder.line,
       this.areaOpacity = 0.1,
       this.roundEndCaps = false,
+      this.areaHasTransparentGradient = false,
       SymbolRenderer? symbolRenderer})
       : symbolRenderer = symbolRenderer ?? LineSymbolRenderer();
 

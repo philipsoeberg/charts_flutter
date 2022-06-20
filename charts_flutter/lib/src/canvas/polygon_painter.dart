@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'dart:math' show Point, Rectangle;
+import 'dart:ui' as ui show Gradient;
 import 'package:flutter/material.dart';
 import 'package:charts_common/common.dart' as common show Color;
 
@@ -30,14 +31,16 @@ class PolygonPainter {
   /// to stroke-dasharray in SVG path elements. An odd number of values in the
   /// pattern will be repeated to derive an even number of values. "1,2,3" is
   /// equivalent to "1,2,3,1,2,3."
-  static void draw(
-      {required Canvas canvas,
-      required Paint paint,
-      required List<Point> points,
-      Rectangle<num>? clipBounds,
-      common.Color? fill,
-      common.Color? stroke,
-      double? strokeWidthPx}) {
+  static void draw({
+    required Canvas canvas,
+    required Paint paint,
+    required List<Point> points,
+    Rectangle<num>? clipBounds,
+    common.Color? fill,
+    common.Color? stroke,
+    double? strokeWidthPx,
+    bool transparentGradient = false,
+  }) {
     if (points.isEmpty) {
       return;
     }
@@ -78,6 +81,21 @@ class PolygonPainter {
       }
 
       if (fillColor != null) {
+        if (transparentGradient) {
+          final _points = List<Point<double>>.from(points);
+          final linear = ui.Gradient.linear(
+            Offset(0, _points.reduce((a, b) => a.y < b.y ? a : b).y.toDouble()),
+            Offset(0, _points.reduce((a, b) => a.y > b.y ? a : b).y.toDouble()),
+            [
+              new Color.fromARGB(
+                  255, fillColor.red, fillColor.green, fillColor.blue),
+              new Color.fromARGB(
+                  0, fillColor.red, fillColor.green, fillColor.blue)
+            ],
+          );
+
+          paint.shader = linear;
+        }
         paint.color = fillColor;
         paint.style = PaintingStyle.fill;
       }
@@ -90,6 +108,8 @@ class PolygonPainter {
       }
 
       canvas.drawPath(path, paint);
+
+      paint.shader = null;
     }
 
     if (clipBounds != null) {

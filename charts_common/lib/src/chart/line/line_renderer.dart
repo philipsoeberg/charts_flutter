@@ -959,9 +959,11 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             .forEach((area) {
           if (area != null) {
             canvas.drawPolygon(
-                clipBounds: _getClipBoundsForExtent(area.positionExtent),
-                fill: area.areaColor ?? area.color,
-                points: area.points.toPoints());
+              clipBounds: _getClipBoundsForExtent(area.positionExtent),
+              fill: area.areaColor ?? area.color,
+              points: area.points.toPoints(),
+              transparentGradient: config.areaHasTransparentGradient,
+            );
           }
         });
       }
