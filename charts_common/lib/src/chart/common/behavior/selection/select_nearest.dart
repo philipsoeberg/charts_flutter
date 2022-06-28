@@ -163,6 +163,10 @@ class SelectNearest<D> implements ChartBehavior<D> {
     // If the selection is delayed (waiting for long press), then quit early.
     if (_delaySelect) return false;
 
+    return selectNearest(chartPoint);
+  }
+
+  bool selectNearest(Point<double> chartPoint) {
     var details = _chart!.getNearestDatumDetailPerSeries(
         chartPoint, selectAcrossAllSeriesRendererComponents);
 
