@@ -116,11 +116,14 @@ class SelectNearest<D> extends ChartBehavior<D> {
   @override
   common.SelectNearest<D> createCommonBehavior() {
     return new common.SelectNearest<D>(
-        selectionModelType: selectionModelType,
-        eventTrigger: eventTrigger,
-        selectionMode: selectionMode,
-        selectClosestSeries: selectClosestSeries,
-        maximumDomainDistancePx: maximumDomainDistancePx);
+      selectionModelType: selectionModelType,
+      eventTrigger: eventTrigger,
+      selectionMode: selectionMode,
+      selectClosestSeries: selectClosestSeries,
+      selectAcrossAllSeriesRendererComponents:
+          selectAcrossAllDrawAreaComponents,
+      maximumDomainDistancePx: maximumDomainDistancePx,
+    );
   }
 
   @override
