@@ -88,6 +88,10 @@ class GestureListener {
   final GestureDragUpdateCallback? onDragUpdate;
   final GestureDragEndCallback? onDragEnd;
 
+  /// Sets a number of priority for give gesture listener
+  /// Default: 0
+  final int priority;
+
   GestureListener({
     GestureSinglePointCallback? onTapTest,
     GestureCancelCallback? onTapCancel,
@@ -99,6 +103,7 @@ class GestureListener {
     this.onDragEnd,
     this.onFocus,
     this.onBlur,
+    this.priority = 0,
   })  : onTapTest = onTapTest ?? defaultTapTest,
         onTapCancel = onTapCancel ?? defaultTapCancel;
 }

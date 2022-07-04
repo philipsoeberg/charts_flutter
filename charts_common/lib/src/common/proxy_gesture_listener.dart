@@ -25,7 +25,10 @@ class ProxyGestureListener {
   var _activeListeners = <GestureListener>[];
 
   void add(GestureListener listener) {
-    _listeners.add(listener);
+    final previousIndex = _listeners.lastIndexWhere(
+      (element) => element.priority >= listener.priority,
+    );
+    _listeners.insert(previousIndex + 1, listener);
     _activeListeners.clear();
   }
 
