@@ -326,7 +326,7 @@ class SelectNearest<D> implements ChartBehavior<D> {
   }
 
   @override
-  String get role => 'SelectNearest-$selectionModelType';
+  String get role => 'SelectNearest-$selectionModelType-$eventTrigger';
 }
 
 /// Mode for expanding the selection beyond just the nearest datum.

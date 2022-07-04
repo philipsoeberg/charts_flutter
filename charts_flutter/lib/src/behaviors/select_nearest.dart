@@ -132,7 +132,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
   // TODO: Explore the performance impact of calculating this once
   // at the constructor for this and common ChartBehaviors.
   @override
-  String get role => 'SelectNearest-${selectionModelType.toString()}}';
+  String get role => 'SelectNearest-$selectionModelType-$eventTrigger';
 
   bool operator ==(Object other) {
     if (other is SelectNearest) {
