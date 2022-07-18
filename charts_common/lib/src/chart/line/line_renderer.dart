@@ -76,7 +76,9 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
 
   LineRenderer._internal({required String rendererId, required this.config})
       : _pointRenderer = PointRenderer<D>(
-            config: PointRendererConfig<D>(radiusPx: config.radiusPx)),
+          config: config.pointRenderer ??
+              PointRendererConfig<D>(radiusPx: config.radiusPx),
+        ),
         super(
             rendererId: rendererId,
             layoutPaintOrder: config.layoutPaintOrder,
