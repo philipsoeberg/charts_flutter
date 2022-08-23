@@ -116,11 +116,14 @@ class SelectNearest<D> extends ChartBehavior<D> {
   @override
   common.SelectNearest<D> createCommonBehavior() {
     return new common.SelectNearest<D>(
-        selectionModelType: selectionModelType,
-        eventTrigger: eventTrigger,
-        selectionMode: selectionMode,
-        selectClosestSeries: selectClosestSeries,
-        maximumDomainDistancePx: maximumDomainDistancePx);
+      selectionModelType: selectionModelType,
+      eventTrigger: eventTrigger,
+      selectionMode: selectionMode,
+      selectClosestSeries: selectClosestSeries,
+      selectAcrossAllSeriesRendererComponents:
+          selectAcrossAllDrawAreaComponents,
+      maximumDomainDistancePx: maximumDomainDistancePx,
+    );
   }
 
   @override
@@ -129,7 +132,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
   // TODO: Explore the performance impact of calculating this once
   // at the constructor for this and common ChartBehaviors.
   @override
-  String get role => 'SelectNearest-${selectionModelType.toString()}}';
+  String get role => 'SelectNearest-$selectionModelType-$eventTrigger';
 
   bool operator ==(Object other) {
     if (other is SelectNearest) {

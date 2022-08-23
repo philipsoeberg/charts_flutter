@@ -91,6 +91,8 @@ class AreaAndLineChart extends StatelessWidget {
               // ID used to link series to this renderer.
               customRendererId: 'customArea',
               includeArea: true,
+              areaOpacity: 0.3,
+              areaHasTransparentGradient: true,
               stacked: true),
         ]);
   }

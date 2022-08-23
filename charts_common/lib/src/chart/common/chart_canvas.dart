@@ -105,12 +105,14 @@ abstract class ChartCanvas {
   ///
   /// [stroke] and [strokeWidthPx] configure the color and thickness of the
   /// edges of the polygon. Both must be provided together for a line to appear.
-  void drawPolygon(
-      {required List<Point> points,
-      Rectangle<num>? clipBounds,
-      Color? fill,
-      Color? stroke,
-      double? strokeWidthPx});
+  void drawPolygon({
+    required List<Point> points,
+    Rectangle<num>? clipBounds,
+    Color? fill,
+    Color? stroke,
+    double? strokeWidthPx,
+    bool transparentGradient = false,
+  });
 
   /// Renders a simple rectangle.
   ///

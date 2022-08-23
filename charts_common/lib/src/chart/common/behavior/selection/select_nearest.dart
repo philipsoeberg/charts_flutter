@@ -163,6 +163,10 @@ class SelectNearest<D> implements ChartBehavior<D> {
     // If the selection is delayed (waiting for long press), then quit early.
     if (_delaySelect) return false;
 
+    return selectNearest(chartPoint);
+  }
+
+  bool selectNearest(Point<double> chartPoint) {
     var details = _chart!.getNearestDatumDetailPerSeries(
         chartPoint, selectAcrossAllSeriesRendererComponents);
 
@@ -322,7 +326,7 @@ class SelectNearest<D> implements ChartBehavior<D> {
   }
 
   @override
-  String get role => 'SelectNearest-$selectionModelType';
+  String get role => 'SelectNearest-$selectionModelType-$eventTrigger';
 }
 
 /// Mode for expanding the selection beyond just the nearest datum.

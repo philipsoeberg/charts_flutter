@@ -88,6 +88,12 @@ class GestureListener {
   final GestureDragUpdateCallback? onDragUpdate;
   final GestureDragEndCallback? onDragEnd;
 
+  /// Sets a number of priority for give gesture listener
+  /// Default: 0
+  final int priority;
+
+  final GestureHitTestBehavior hitTestBehavior;
+
   GestureListener({
     GestureSinglePointCallback? onTapTest,
     GestureCancelCallback? onTapCancel,
@@ -99,6 +105,8 @@ class GestureListener {
     this.onDragEnd,
     this.onFocus,
     this.onBlur,
+    this.priority = 0,
+    this.hitTestBehavior = GestureHitTestBehavior.opaque,
   })  : onTapTest = onTapTest ?? defaultTapTest,
         onTapCancel = onTapCancel ?? defaultTapCancel;
 }
@@ -112,3 +120,14 @@ typedef GestureDragUpdateCallback = bool Function(
     Point<double> localPosition, double scale);
 typedef GestureDragEndCallback = bool Function(
     Point<double> localPosition, double scale, double pixelsPerSec);
+
+enum GestureHitTestBehavior {
+  /// Opaque targets can be hit by hit tests, causing them to both receive
+  /// events within their bounds and prevent targets visually behind them from
+  /// also receiving events.
+  opaque,
+
+  /// Translucent targets both receive events within their bounds and permit
+  /// targets visually behind them to also receive events.
+  translucent,
+}

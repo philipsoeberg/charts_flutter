@@ -409,6 +409,7 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
 
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
+    canvas.setClipBounds(_drawAreaBounds);
     final _annotationMap = this._annotationMap;
     if (_annotationMap == null) {
       return;
@@ -494,6 +495,7 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
         });
       }
     });
+    canvas.resetClipBounds();
   }
 
   /// Calculates the bounds of the annotation.

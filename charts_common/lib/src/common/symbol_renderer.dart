@@ -23,7 +23,7 @@ import 'style/style_factory.dart' show StyleFactory;
 
 /// Strategy for rendering a symbol.
 abstract class BaseSymbolRenderer {
-  bool shouldRepaint(covariant BaseSymbolRenderer oldRenderer);
+  bool shouldRepaint(SymbolRenderer oldRenderer);
 }
 
 /// Strategy for rendering a symbol bounded within a box.
@@ -102,7 +102,7 @@ class RoundedRectSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(RoundedRectSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -185,7 +185,7 @@ class LineSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(LineSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -229,7 +229,7 @@ class CircleSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(CircleSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -263,7 +263,7 @@ class RectSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(RectSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -308,7 +308,7 @@ class TriangleSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(TriangleSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -347,7 +347,7 @@ class CylinderSymbolRenderer extends PointSymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(CylinderSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 
@@ -387,7 +387,7 @@ class RectangleRangeSymbolRenderer extends PointSymbolRenderer {
   }
 
   @override
-  bool shouldRepaint(RectangleRangeSymbolRenderer oldRenderer) {
+  bool shouldRepaint(SymbolRenderer oldRenderer) {
     return this != oldRenderer;
   }
 

@@ -76,7 +76,9 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
 
   LineRenderer._internal({required String rendererId, required this.config})
       : _pointRenderer = PointRenderer<D>(
-            config: PointRendererConfig<D>(radiusPx: config.radiusPx)),
+          config: config.pointRenderer ??
+              PointRendererConfig<D>(radiusPx: config.radiusPx),
+        ),
         super(
             rendererId: rendererId,
             layoutPaintOrder: config.layoutPaintOrder,
@@ -959,9 +961,11 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             .forEach((area) {
           if (area != null) {
             canvas.drawPolygon(
-                clipBounds: _getClipBoundsForExtent(area.positionExtent),
-                fill: area.areaColor ?? area.color,
-                points: area.points.toPoints());
+              clipBounds: _getClipBoundsForExtent(area.positionExtent),
+              fill: area.areaColor ?? area.color,
+              points: area.points.toPoints(),
+              transparentGradient: config.areaHasTransparentGradient,
+            );
           }
         });
       }

@@ -17,6 +17,7 @@ import '../../common/symbol_renderer.dart';
 import '../common/series_renderer_config.dart'
     show RendererAttributes, SeriesRendererConfig;
 import '../layout/layout_view.dart' show LayoutViewConfig, LayoutViewPaintOrder;
+import '../scatter_plot/point_renderer_config.dart';
 import 'line_renderer.dart' show LineRenderer;
 
 /// Configuration for a line renderer.
@@ -70,23 +71,31 @@ class LineRendererConfig<D> extends LayoutViewConfig
   /// Configures the opacity of the area skirt on the chart.
   final double areaOpacity;
 
+  /// Adds a tramsparent gradient to the area
+  final bool areaHasTransparentGradient;
+
   /// Whether lines should have round end caps, or square if false.
   final bool roundEndCaps;
 
-  LineRendererConfig(
-      {this.customRendererId,
-      this.radiusPx = 3.5,
-      this.stacked = false,
-      this.strokeWidthPx = 2.0,
-      this.dashPattern,
-      this.includeLine = true,
-      this.includePoints = false,
-      this.includeArea = false,
-      this.layoutPaintOrder = LayoutViewPaintOrder.line,
-      this.areaOpacity = 0.1,
-      this.roundEndCaps = false,
-      SymbolRenderer? symbolRenderer})
-      : symbolRenderer = symbolRenderer ?? LineSymbolRenderer();
+  /// Defines how the point is rendered
+  final PointRendererConfig<D>? pointRenderer;
+
+  LineRendererConfig({
+    this.customRendererId,
+    this.radiusPx = 3.5,
+    this.stacked = false,
+    this.strokeWidthPx = 2.0,
+    this.dashPattern,
+    this.includeLine = true,
+    this.includePoints = false,
+    this.includeArea = false,
+    this.layoutPaintOrder = LayoutViewPaintOrder.line,
+    this.areaOpacity = 0.1,
+    this.roundEndCaps = false,
+    this.areaHasTransparentGradient = false,
+    SymbolRenderer? symbolRenderer,
+    this.pointRenderer,
+  }) : symbolRenderer = symbolRenderer ?? LineSymbolRenderer();
 
   @override
   LineRenderer<D> build() {

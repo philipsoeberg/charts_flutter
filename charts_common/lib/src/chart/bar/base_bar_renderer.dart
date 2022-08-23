@@ -702,7 +702,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
     final stackKeys = (domainValue != null)
         ? _currentGroupsStackKeys[domainValue]
         : _currentGroupsStackKeys.values
-            .reduce((allKeys, keys) => allKeys..addAll(keys));
+            .fold<Set<String>>({}, (allKeys, keys) => allKeys..addAll(keys));
     stackKeys?.forEach((String stackKey) {
       if (where != null) {
         matchingSegments.addAll(_barStackMap[stackKey]!.where(where));
