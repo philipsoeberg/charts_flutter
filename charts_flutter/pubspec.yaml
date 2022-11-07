@@ -16,7 +16,7 @@ dependencies:
   #charts_common: ^0.12.0
   charts_common:
      git: 
-      url: https://github.com/philipsoeberg/charts/
+      url: https://github.com/philipsoeberg/charts_flutter/
       path: charts_common
   flutter:
     sdk: flutter
