@@ -10,8 +10,14 @@ environment:
 dependencies:
   # Pointing this to a local path allows for pointing to the latest code
   # in Github for open source development.
+  #
+  # The pub version of charts_flutter will point to the pub version of charts_common.
+  # The latest pub version is commented out and shown below as an example.
+  #charts_common: ^0.12.0
   charts_common:
-     path: ../charts_common
+     git: 
+      url: https://github.com/philipsoeberg/charts_flutter/
+      path: charts_common
   flutter:
     sdk: flutter
   logging: ^1.1.0
